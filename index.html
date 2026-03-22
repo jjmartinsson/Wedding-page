@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joel & Madeleine</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <span class="nav-names">J & M</span>
+      <ul class="nav-links">
+        <li><a href="#dagen">Dagen</a></li>
+        <li><a href="#praktiskt">Praktisk info</a></li>
+        <li><a href="#osa">OSA</a></li>
+        <li><a href="#galleri">Galleri</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+
+    <!-- Placeholder hero image — replace with your photo -->
+    <div class="hero-img-placeholder" aria-hidden="true">
+      <span class="placeholder-label">📷 Lägg till er vackraste bild här</span>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Vi gifter oss!</p>
+      <h1 class="hero-names">Joel <span class="amp">&amp;</span> Madeleine</h1>
+      <div class="hero-divider">
+        <span class="divider-line"></span>
+        <span class="divider-leaf">🌿</span>
+        <span class="divider-line"></span>
+      </div>
+      <p class="hero-date">22 Augusti 2026</p>
+      <p class="hero-location">Kalmar Slott, Kalmar</p>
+      <a href="#dagen" class="hero-scroll" aria-label="Scrolla ner">
+        <span class="scroll-arrow">&#8595;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ─── COUNTDOWN ─── -->
+  <section class="countdown-section" id="countdown">
+    <p class="countdown-label">Dagarna tills vi säger ja</p>
+    <div class="countdown-grid">
+      <div class="countdown-block">
+        <span class="countdown-num" id="cd-days">–</span>
+        <span class="countdown-unit">Dagar</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <span class="countdown-num" id="cd-hours">–</span>
+        <span class="countdown-unit">Timmar</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <span class="countdown-num" id="cd-minutes">–</span>
+        <span class="countdown-unit">Minuter</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <span class="countdown-num" id="cd-seconds">–</span>
+        <span class="countdown-unit">Sekunder</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DAGEN ─── -->
+  <section class="section" id="dagen">
+    <div class="section-inner">
+      <p class="section-tag">22 Augusti 2026</p>
+      <h2 class="section-title">Dagen</h2>
+      <p class="section-sub">Hela firandet sker på Kalmar Slott</p>
+
+      <div class="timeline">
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">15:30</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Välkommen</h3>
+            <p>Gästerna samlas och välkomnas utanför Kalmar Slott.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">16:00</div>
+          <div class="timeline-dot timeline-dot--main"></div>
+          <div class="timeline-content">
+            <h3>Vigsel <span class="tag-highlight">♥</span></h3>
+            <p>Bröllopsceremonin äger rum inne på Kalmar Slott.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">Efter vigseln</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Brudskål</h3>
+            <p>Vi skålar för de nygifta med ett glas bubbel.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">Kvällen</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Middag &amp; Fest</h3>
+            <p>En festlig middag följt av dans och firande — allt på slottet.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRAKTISK INFO ─── -->
+  <section class="section section--alt" id="praktiskt">
+    <div class="section-inner">
+      <p class="section-tag">Bra att veta</p>
+      <h2 class="section-title">Praktisk information</h2>
+
+      <div class="info-grid">
+
+        <!-- Dress code -->
+        <div class="info-card fade-in">
+          <div class="info-icon">👗</div>
+          <h3>Klädkod</h3>
+          <p>
+            <strong>Mörk kostym / Lång klänning</strong><br />
+            Vi ber er klä upp er för kvällen. Gärna i toner som kompletterar
+            bröllopspaletten — rosa, grönt och vitt är hjärtligt välkommet!
+          </p>
+        </div>
+
+        <!-- Boende -->
+        <div class="info-card fade-in">
+          <div class="info-icon">🏨</div>
+          <h3>Boende</h3>
+          <p>
+            Kvällen <strong>innan</strong> bröllopet bor vi på
+            <strong>Slottshotellet</strong> i Kalmar — precis bredvid slottet.
+            Vi har reserverade rum som ni kan boka direkt.
+          </p>
+          <p class="info-highlight">
+            Använd koden <strong>Joel&amp;Madeleine2025</strong> vid bokning
+            och få <strong>10% rabatt</strong>!
+          </p>
+          <p><em>Slottshotellet · Slottsvägen 7 · Kalmar</em></p>
+        </div>
+
+        <!-- Transport -->
+        <div class="info-card fade-in">
+          <div class="info-icon">🚗</div>
+          <h3>Transport &amp; Parkering</h3>
+          <p>
+            Kalmar Slott ligger centralt i Kalmar och är lättillgängligt med
+            bil och kollektivtrafik.
+          </p>
+          <p>
+            <strong>Parkering:</strong> Det finns parkering i närheten av
+            slottet. Vi återkommer med mer detaljerad information.
+          </p>
+          <p>
+            <strong>Tåg:</strong> Kalmar C ligger ca 10 minuters promenad
+            från slottet.
+          </p>
+          <!-- Placeholder for more transport info -->
+          <p class="info-placeholder">[Mer transportinfo läggs till här]</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OSA ─── -->
+  <section class="osa-section" id="osa">
+    <div class="osa-inner">
+      <p class="section-tag section-tag--light">Svara senast [DATUM]</p>
+      <h2 class="osa-title">OSA</h2>
+      <p class="osa-sub">
+        Vi vill gärna veta om du kommer! Fyll i formuläret nedan för att
+        anmäla dig till bröllopet. Glöm inte att ange eventuella allergier.
+      </p>
+      <!-- Replace the href below with your actual form link -->
+      <a href="#" class="btn-osa" id="osa-link">
+        Anmäl er här &rarr;
+      </a>
+      <p class="osa-note">Formulärlänk läggs till här. Kontakta oss vid frågor.</p>
+    </div>
+  </section>
+
+  <!-- ─── GALLERI ─── -->
+  <section class="section" id="galleri">
+    <div class="section-inner">
+      <p class="section-tag">Bilder</p>
+      <h2 class="section-title">Vårt galleri</h2>
+      <p class="section-sub">Ett litet urval bilder från vår resa tillsammans</p>
+
+      <div class="gallery-grid">
+
+        <div class="gallery-item fade-in">
+          <div class="gallery-img-placeholder">
+            <span>📷 Bild 1<br /><small>Lägg till foto här</small></span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-text">[Beskriv bilden]</p>
+            <p class="gallery-caption-date">[Datum]</p>
+          </div>
+        </div>
+
+        <div class="gallery-item fade-in">
+          <div class="gallery-img-placeholder">
+            <span>📷 Bild 2<br /><small>Lägg till foto här</small></span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-text">[Beskriv bilden]</p>
+            <p class="gallery-caption-date">[Datum]</p>
+          </div>
+        </div>
+
+        <div class="gallery-item fade-in">
+          <div class="gallery-img-placeholder">
+            <span>📷 Bild 3<br /><small>Lägg till foto här</small></span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-text">[Beskriv bilden]</p>
+            <p class="gallery-caption-date">[Datum]</p>
+          </div>
+        </div>
+
+        <div class="gallery-item fade-in">
+          <div class="gallery-img-placeholder">
+            <span>📷 Bild 4<br /><small>Lägg till foto här</small></span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-text">[Beskriv bilden]</p>
+            <p class="gallery-caption-date">[Datum]</p>
+          </div>
+        </div>
+
+        <div class="gallery-item fade-in">
+          <div class="gallery-img-placeholder">
+            <span>📷 Bild 5<br /><small>Lägg till foto här</small></span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-text">[Beskriv bilden]</p>
+            <p class="gallery-caption-date">[Datum]</p>
+          </div>
+        </div>
+
+        <div class="gallery-item fade-in">
+          <div class="gallery-img-placeholder">
+            <span>📷 Bild 6<br /><small>Lägg till foto här</small></span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-text">[Beskriv bilden]</p>
+            <p class="gallery-caption-date">[Datum]</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-names">Joel <span class="amp">&amp;</span> Madeleine</p>
+      <p class="footer-date">22 · 08 · 2026</p>
+      <p class="footer-location">Kalmar Slott, Kalmar</p>
+      <div class="footer-divider">
+        <span class="divider-line"></span>
+        <span class="divider-leaf">🌿</span>
+        <span class="divider-line"></span>
+      </div>
+      <p class="footer-love">Med kärlek ser vi fram emot att fira med er ♥</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
