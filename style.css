@@ -133,6 +133,7 @@ img { display: block; max-width: 100%; }
 .hero-photo {
   position: absolute;
   inset: 0;
+  background: linear-gradient(160deg, #d4a0ad 0%, #e8c4c8 35%, #c8d4c0 70%, #8aab8a 100%);
   background-size: cover;
   background-position: center top;
 }
@@ -272,6 +273,7 @@ img { display: block; max-width: 100%; }
 .duo-frame {
   border-radius: 2px;
   overflow: hidden;
+  background: linear-gradient(135deg, #e8c4c8 0%, #c8d4c0 100%);
 }
 .duo-frame--tall { height: 460px; }
 .duo-frame img {
@@ -429,6 +431,7 @@ img { display: block; max-width: 100%; }
 /* ── Wide photo break ── */
 .photo-break {
   height: 420px;
+  background: linear-gradient(135deg, #e8c4c8 0%, #c8d4c0 100%);
   background-size: cover;
   background-position: center;
   position: relative;
@@ -499,6 +502,7 @@ img { display: block; max-width: 100%; }
 .osa-photo {
   position: absolute;
   inset: 0;
+  background: linear-gradient(160deg, #8aab8a 0%, #c8d4c0 40%, #e8c4c8 100%);
   background-size: cover;
   background-position: center;
 }
@@ -581,7 +585,7 @@ img { display: block; max-width: 100%; }
 .gallery-item {
   position: relative;
   overflow: hidden;
-  background: var(--blush-pale);
+  background: linear-gradient(135deg, var(--blush-pale) 0%, var(--sage-pale) 100%);
   cursor: default;
 }
 .gallery-item:hover .gallery-img::after {
