@@ -5,18 +5,18 @@
 
 :root {
   --white:        #ffffff;
-  --off-white:    #fdfaf8;
-  --blush-pale:   #faf0f1;
-  --blush:        #f2c5c9;
-  --rose:         #c4778a;
-  --rose-deep:    #a85870;
-  --sage:         #7a9e7a;
-  --sage-light:   #c2d9c2;
-  --sage-pale:    #eef5ee;
-  --sage-dark:    #4a6e4a;
-  --dark:         #242020;
-  --mid:          #7a6a6a;
-  --light-border: #ede0e0;
+  --off-white:    #fdf8f5;
+  --blush-pale:   #fbeef0;
+  --blush:        #f5cdd2;
+  --rose:         #d4899a;
+  --rose-deep:    #b86878;
+  --sage:         #8ab58a;
+  --sage-light:   #c8dfc8;
+  --sage-pale:    #eef6ee;
+  --sage-dark:    #5a845a;
+  --dark:         #3a2a2a;
+  --mid:          #c4969e;
+  --light-border: #f0dde0;
 
   --font-script:  'Great Vibes', cursive;
   --font-serif:   'Cormorant Garamond', Georgia, serif;
@@ -222,7 +222,7 @@ img { display: block; max-width: 100%; }
 
 /* ── Countdown ── */
 .countdown-section {
-  background: var(--white);
+  background: var(--blush-pale);
   border-bottom: 1px solid var(--light-border);
   padding: 3rem 2rem;
   text-align: center;
@@ -232,7 +232,7 @@ img { display: block; max-width: 100%; }
   font-style: italic;
   font-size: 1rem;
   letter-spacing: 0.1em;
-  color: var(--mid);
+  color: var(--rose-deep);
   margin-bottom: 1.5rem;
 }
 .countdown-grid {
@@ -260,7 +260,7 @@ img { display: block; max-width: 100%; }
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--mid);
+  color: var(--rose);
   margin-top: 0.35rem;
 }
 .countdown-sep {
@@ -272,7 +272,7 @@ img { display: block; max-width: 100%; }
 
 /* ── Duo photos ── */
 .duo-photos {
-  background: var(--blush-pale);
+  background: linear-gradient(to right, var(--blush-pale), var(--sage-pale), var(--blush-pale));
   padding: 5rem 2rem;
 }
 .duo-inner {
@@ -302,7 +302,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 1.1rem;
-  color: var(--mid);
+  color: var(--rose-deep);
   line-height: 1.8;
   margin-bottom: 1.5rem;
 }
@@ -322,7 +322,7 @@ img { display: block; max-width: 100%; }
 /* ── Sections ── */
 .section {
   padding: 6rem 2rem;
-  background: var(--off-white);
+  background: var(--blush-pale);
 }
 .section--white { background: var(--white); }
 .section--sage  { background: var(--sage-pale); }
@@ -341,7 +341,7 @@ img { display: block; max-width: 100%; }
   font-size: 0.875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--sage);
+  color: var(--sage-dark);
   text-align: center;
   margin-bottom: 0.5rem;
 }
@@ -361,7 +361,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-serif);
   font-style: italic;
   text-align: center;
-  color: var(--mid);
+  color: var(--rose);
   font-size: 1.05rem;
   margin-bottom: 3rem;
 }
@@ -429,7 +429,7 @@ img { display: block; max-width: 100%; }
 }
 .tl-body p {
   font-size: 1rem;
-  color: var(--mid);
+  color: var(--rose);
 }
 
 /* ── Wide photo break ── */
@@ -481,7 +481,7 @@ img { display: block; max-width: 100%; }
 }
 .info-card p {
   font-size: 1rem;
-  color: var(--mid);
+  color: var(--rose-deep);
   margin-bottom: 0.75rem;
 }
 .info-code {
@@ -661,7 +661,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.95rem;
-  color: var(--mid);
+  color: var(--rose);
 }
 
 /* ── Footer ── */
@@ -693,14 +693,14 @@ img { display: block; max-width: 100%; }
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  color: var(--sage-light);
   margin-bottom: 2rem;
 }
 .footer-love {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 1rem;
-  color: rgba(255,255,255,0.45);
+  color: var(--blush);
 }
 
 /* ── Fade-in ── */
