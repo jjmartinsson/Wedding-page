@@ -11,6 +11,61 @@
 </head>
 <body>
 
+  <!-- ─── PASSWORD GATE ─── -->
+  <div id="pw-gate" style="
+    position:fixed;inset:0;z-index:9999;
+    background:linear-gradient(160deg,#d4a0ad 0%,#e8c4c8 35%,#c8d4c0 70%,#8aab8a 100%);
+    display:flex;align-items:center;justify-content:center;
+  ">
+    <div style="
+      background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);
+      padding:2.5rem 2rem;border-radius:4px;text-align:center;
+      box-shadow:0 8px 32px rgba(0,0,0,0.08);max-width:360px;width:90%;
+    ">
+      <p style="font-family:'Great Vibes',cursive;font-size:2.4rem;color:#8a5a6a;margin:0 0 0.25rem;">Joel &amp; Madeleine</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.15em;color:#8a8a8a;margin:0 0 1.8rem;">22 AUGUSTI 2026</p>
+      <input id="pw-input" type="password" placeholder="Lösenord"
+        autocomplete="off" spellcheck="false"
+        style="
+          width:100%;box-sizing:border-box;padding:0.7rem 1rem;
+          border:1px solid #d4b8be;border-radius:2px;font-size:1rem;
+          font-family:'Cormorant Garamond',serif;letter-spacing:0.08em;
+          background:#fff;color:#333;outline:none;margin-bottom:0.6rem;
+        " />
+      <p id="pw-error" style="
+        font-family:'Cormorant Garamond',serif;font-size:0.85rem;
+        color:#c0504d;margin:0 0 0.8rem;min-height:1.2em;
+      "></p>
+      <button onclick="checkPassword()" style="
+        width:100%;padding:0.75rem;background:#8a5a6a;color:#fff;
+        border:none;border-radius:2px;font-family:'Cormorant Garamond',serif;
+        font-size:1rem;letter-spacing:0.15em;cursor:pointer;
+      ">ENTER</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      if(sessionStorage.getItem('weddingAuth')==='1'){
+        document.getElementById('pw-gate').style.display='none';
+      }
+      document.getElementById('pw-input').addEventListener('keydown',function(e){
+        if(e.key==='Enter') checkPassword();
+      });
+    })();
+    function checkPassword(){
+      var val=document.getElementById('pw-input').value;
+      if(val==='MadeleineJoel2026'){
+        sessionStorage.setItem('weddingAuth','1');
+        document.getElementById('pw-gate').style.display='none';
+      } else {
+        document.getElementById('pw-error').textContent='Fel lösenord, försök igen.';
+        document.getElementById('pw-input').value='';
+        document.getElementById('pw-input').focus();
+      }
+    }
+  </script>
+
   <!-- ─── NAVBAR ─── -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
