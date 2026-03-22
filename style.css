@@ -130,12 +130,22 @@ img { display: block; max-width: 100%; }
   justify-content: center;
   overflow: hidden;
 }
-.hero-photo {
+.hero-triptych {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #d4a0ad 0%, #e8c4c8 35%, #c8d4c0 70%, #8aab8a 100%);
-  background-size: cover;
-  background-position: center top;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.hero-panel {
+  overflow: hidden;
+}
+.hero-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-orientation: from-image;
+  display: block;
 }
 .hero-overlay {
   position: absolute;
@@ -275,12 +285,13 @@ img { display: block; max-width: 100%; }
   overflow: hidden;
   background: linear-gradient(135deg, #e8c4c8 0%, #c8d4c0 100%);
 }
-.duo-frame--tall { height: 460px; }
+.duo-frame--tall { height: 400px; }
 .duo-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
+  image-orientation: from-image;
   display: block;
 }
 .duo-text {
@@ -302,12 +313,24 @@ img { display: block; max-width: 100%; }
   color: var(--rose);
   letter-spacing: 0.06em;
 }
+.duo-quote--sm {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--rose-deep);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  margin-top: 0.5rem;
+}
 .duo-rule {
   display: block;
   width: 24px;
   height: 1px;
   background: var(--sage);
   margin: 0 auto 1.5rem;
+}
+.duo-rule--gap {
+  margin-top: 2rem;
 }
 .duo-names {
   font-family: var(--font-script);
@@ -432,10 +455,18 @@ img { display: block; max-width: 100%; }
 .photo-break {
   height: 420px;
   background: linear-gradient(135deg, #e8c4c8 0%, #c8d4c0 100%);
-  background-size: cover;
-  background-position: center;
   position: relative;
   overflow: hidden;
+}
+.photo-break-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-orientation: from-image;
+  display: block;
 }
 .photo-break-overlay {
   position: absolute;
@@ -502,9 +533,7 @@ img { display: block; max-width: 100%; }
 .osa-photo {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #8aab8a 0%, #c8d4c0 40%, #e8c4c8 100%);
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, var(--sage-light) 0%, #b8d4b8 50%, var(--blush) 100%);
 }
 .osa-overlay {
   position: absolute;
@@ -601,7 +630,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   display: block;
   transition: transform 0.6s ease;
   image-orientation: from-image;
@@ -633,6 +662,32 @@ img { display: block; max-width: 100%; }
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--blush);
+}
+
+/* ── FAQ ── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+}
+.faq-item {
+  border-top: 1px solid var(--light-border);
+  padding: 1.75rem 0;
+}
+.faq-item:last-child {
+  border-bottom: 1px solid var(--light-border);
+}
+.faq-item h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--dark);
+  margin-bottom: 0.6rem;
+}
+.faq-item p {
+  font-size: 1rem;
+  color: var(--rose-deep);
+  line-height: 1.75;
 }
 
 /* ── Gästbilder ── */
@@ -733,6 +788,8 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 600px) {
+  .hero-triptych { grid-template-columns: 1fr; }
+  .hero-panel:not(:first-child) { display: none; }
   .nav-links { display: none; }
   .photo-break { height: 260px; }
   .info-grid { grid-template-columns: 1fr; }
