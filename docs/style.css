@@ -496,15 +496,15 @@ img { display: block; max-width: 100%; }
 }
 
 /* ── Info cards ── */
-.info-grid--two-col {
-  grid-template-columns: repeat(2, 1fr);
-}
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2px;
   margin-top: 0.5rem;
   border: 1px solid var(--light-border);
+}
+.info-grid--two-col {
+  grid-template-columns: repeat(2, 1fr);
 }
 .info-card {
   background: var(--white);
