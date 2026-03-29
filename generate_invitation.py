@@ -3,225 +3,188 @@
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
-from reportlab.lib.colors import HexColor, white, black
+from reportlab.lib.colors import HexColor
 from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.utils import ImageReader
-from PIL import Image
-import io
-import os
 
 # Colors matching the website
-BLUSH = HexColor('#d4899a')
+BLUSH       = HexColor('#d4899a')
 BLUSH_LIGHT = HexColor('#fbeef0')
-BLUSH_MID = HexColor('#f5cdd2')
-SAGE = HexColor('#8ab58a')
-SAGE_DARK = HexColor('#5a845a')
-SAGE_LIGHT = HexColor('#eef6ee')
-DARK_BROWN = HexColor('#3a2a2a')
-OFF_WHITE = HexColor('#fdf8f5')
-ROSE_DARK = HexColor('#b86878')
+BLUSH_MID   = HexColor('#f5cdd2')
+SAGE        = HexColor('#8ab58a')
+SAGE_DARK   = HexColor('#5a845a')
+SAGE_LIGHT  = HexColor('#eef6ee')
+DARK_BROWN  = HexColor('#3a2a2a')
+OFF_WHITE   = HexColor('#fdf8f5')
+ROSE_DARK   = HexColor('#b86878')
 
-W, H = A4  # 595.28 x 841.89 points
+W, H = A4   # 595.28 x 841.89 pt  ≈  21 x 29.7 cm
+cx = W / 2
 
-def draw_border(c, x, y, w, h, color, thickness=1.5):
-    c.setStrokeColor(color)
-    c.setLineWidth(thickness)
-    c.rect(x, y, w, h, stroke=1, fill=0)
 
-def draw_thin_line(c, x1, y1, x2, y2, color, thickness=0.5):
-    c.setStrokeColor(color)
-    c.setLineWidth(thickness)
-    c.line(x1, y1, x2, y2)
+def y(cm_from_top):
+    """Convert cm-from-top to reportlab y (bottom-origin)."""
+    return H - cm_from_top * cm
 
-def draw_ornament_line(c, cx, y, width, color):
-    """Draw a decorative line with diamond center."""
-    half = width / 2
+
+def ornament(c, cy_from_top, width_cm, color):
+    """Decorative rule with a diamond centre."""
+    yp = y(cy_from_top)
+    half = width_cm * cm / 2
     c.setStrokeColor(color)
     c.setLineWidth(0.5)
-    c.line(cx - half, y, cx - 0.4*cm, y)
-    c.line(cx + 0.4*cm, y, cx + half, y)
-    # Diamond
+    c.line(cx - half, yp, cx - 0.35*cm, yp)
+    c.line(cx + 0.35*cm, yp, cx + half, yp)
     c.setFillColor(color)
     path = c.beginPath()
-    path.moveTo(cx, y + 3)
-    path.lineTo(cx + 4, y)
-    path.lineTo(cx, y - 3)
-    path.lineTo(cx - 4, y)
+    path.moveTo(cx,        yp + 3)
+    path.lineTo(cx + 4,    yp)
+    path.lineTo(cx,        yp - 3)
+    path.lineTo(cx - 4,    yp)
     path.close()
     c.drawPath(path, fill=1, stroke=0)
 
-def create_invitation():
-    output_path = '/home/user/Wedding-page/invitation_MadeleineJoel2026.pdf'
-    c = canvas.Canvas(output_path, pagesize=A4)
 
-    # ── Background ──────────────────────────────────────────────────────
+def text(c, cm_from_top, string, font, size, color, align='centre'):
+    c.setFont(font, size)
+    c.setFillColor(color)
+    yp = y(cm_from_top)
+    if align == 'centre':
+        c.drawCentredString(cx, yp, string)
+    elif align == 'right':
+        c.drawRightString(cx - 0.25*cm, yp, string)
+    elif align == 'left':
+        c.drawString(cx + 0.25*cm, yp, string)
+
+
+def create_invitation():
+    out = '/home/user/Wedding-page/invitation_MadeleineJoel2026.pdf'
+    c = canvas.Canvas(out, pagesize=A4)
+
+    # ── Background ────────────────────────────────────────────────────────
     c.setFillColor(OFF_WHITE)
     c.rect(0, 0, W, H, fill=1, stroke=0)
 
-    # Soft blush gradient strip at top
+    # Blush top strip
     c.setFillColor(BLUSH_LIGHT)
-    c.rect(0, H - 3.5*cm, W, 3.5*cm, fill=1, stroke=0)
+    c.rect(0, y(3.2), W, 3.2*cm, fill=1, stroke=0)
 
-    # Soft sage strip at bottom
+    # Sage bottom strip
     c.setFillColor(SAGE_LIGHT)
-    c.rect(0, 0, W, 3*cm, fill=1, stroke=0)
+    c.rect(0, 0, W, 3.0*cm, fill=1, stroke=0)
 
-    # Outer border (double)
-    margin = 1.0*cm
-    draw_border(c, margin, margin, W - 2*margin, H - 2*margin, BLUSH, 2)
-    draw_border(c, margin + 0.25*cm, margin + 0.25*cm,
-                W - 2*(margin + 0.25*cm), H - 2*(margin + 0.25*cm), SAGE, 0.8)
+    # Outer double border
+    m = 1.0*cm
+    c.setStrokeColor(BLUSH);  c.setLineWidth(2.0)
+    c.rect(m, m, W - 2*m, H - 2*m, stroke=1, fill=0)
+    c.setStrokeColor(SAGE);   c.setLineWidth(0.8)
+    c.rect(m + 0.22*cm, m + 0.22*cm,
+           W - 2*(m + 0.22*cm), H - 2*(m + 0.22*cm), stroke=1, fill=0)
 
-    cx = W / 2  # center x
+    # ── Header ────────────────────────────────────────────────────────────
+    ornament(c, 2.1, 10, BLUSH)
+    text(c, 3.6, "Vi gifter oss", "Times-BoldItalic", 30, ROSE_DARK)
+    ornament(c, 4.2, 8, SAGE)
+    text(c, 5.8, "Madeleine & Joel", "Times-BoldItalic", 46, DARK_BROWN)
+    ornament(c, 6.4, 12, BLUSH)
 
-    # ── Top decorative header ────────────────────────────────────────────
-    top_y = H - 2.2*cm
-    draw_ornament_line(c, cx, top_y, 10*cm, BLUSH)
-
-    # ── Title: "Vi gifter oss" ───────────────────────────────────────────
-    c.setFont("Times-BoldItalic", 32)
-    c.setFillColor(ROSE_DARK)
-    title = "Vi gifter oss"
-    c.drawCentredString(cx, H - 4.2*cm, title)
-
-    draw_ornament_line(c, cx, H - 4.8*cm, 8*cm, SAGE)
-
-    # ── Names ────────────────────────────────────────────────────────────
-    c.setFont("Times-BoldItalic", 48)
-    c.setFillColor(DARK_BROWN)
-    c.drawCentredString(cx, H - 6.5*cm, "Madeleine & Joel")
-
-    # Small flourish under names
-    draw_ornament_line(c, cx, H - 7.0*cm, 12*cm, BLUSH)
-
-    # ── Castle image ─────────────────────────────────────────────────────
-    castle_path = '/home/user/Wedding-page/slottet.jpg'
-    img_w = 14*cm
-    img_h = 7.5*cm
-    img_x = (W - img_w) / 2
-    img_y = H - 15.5*cm
-
-    # Decorative frame behind image
-    frame_pad = 0.2*cm
+    # ── Castle image ──────────────────────────────────────────────────────
+    iw, ih = 13.5*cm, 6.5*cm
+    ix = (W - iw) / 2
+    iy = y(13.5)                     # bottom of image = 13.5 cm from top
+    pad = 0.18*cm
     c.setFillColor(BLUSH_MID)
-    c.rect(img_x - frame_pad, img_y - frame_pad,
-           img_w + 2*frame_pad, img_h + 2*frame_pad, fill=1, stroke=0)
-
-    c.drawImage(castle_path, img_x, img_y, width=img_w, height=img_h,
+    c.rect(ix - pad, iy - pad, iw + 2*pad, ih + 2*pad, fill=1, stroke=0)
+    c.drawImage('/home/user/Wedding-page/slottet.jpg',
+                ix, iy, width=iw, height=ih,
                 preserveAspectRatio=True, mask='auto')
 
-    # Caption under castle image
-    c.setFont("Times-Italic", 9)
-    c.setFillColor(SAGE_DARK)
-    c.drawCentredString(cx, img_y - 0.5*cm, "Kalmar Slott")
+    text(c, 14.1, "Kalmar Slott", "Times-Italic", 9, SAGE_DARK)
+    ornament(c, 14.7, 10, SAGE)
 
-    draw_ornament_line(c, cx, img_y - 1.1*cm, 10*cm, SAGE)
+    # ── Invitation body ───────────────────────────────────────────────────
+    text(c, 15.7, "Med glädje och kärlek inbjuder vi er att fira",
+         "Times-Roman", 12, DARK_BROWN)
+    text(c, 16.3, "vårt bröllop tillsammans med oss.",
+         "Times-Roman", 12, DARK_BROWN)
 
-    # ── Main invitation text ─────────────────────────────────────────────
-    text_y = img_y - 2.0*cm
+    text(c, 17.4, "Lördagen den 22 augusti 2026",
+         "Times-Bold", 15, ROSE_DARK)
+    text(c, 18.1, "Vigsel kl. 16:00",   "Times-Roman", 12, DARK_BROWN)
+    text(c, 18.7, "Kalmar Slottskyrka, Kalmar", "Times-Roman", 12, DARK_BROWN)
 
-    c.setFont("Times-Roman", 13)
-    c.setFillColor(DARK_BROWN)
-    c.drawCentredString(cx, text_y, "Med glädje och kärlek inbjuder vi er att fira")
+    ornament(c, 19.35, 9, BLUSH)
 
-    text_y -= 0.65*cm
-    c.drawCentredString(cx, text_y, "vårt bröllop tillsammans med oss.")
+    # ── Programme ────────────────────────────────────────────────────────
+    text(c, 20.2, "Program", "Times-BoldItalic", 12, SAGE_DARK)
 
-    # Date block
-    text_y -= 1.4*cm
-    c.setFont("Times-Bold", 16)
-    c.setFillColor(ROSE_DARK)
-    c.drawCentredString(cx, text_y, "Lördagen den 22 augusti 2026")
-
-    text_y -= 0.75*cm
-    c.setFont("Times-Roman", 13)
-    c.setFillColor(DARK_BROWN)
-    c.drawCentredString(cx, text_y, "Vigsel kl. 16:00")
-
-    text_y -= 0.65*cm
-    c.drawCentredString(cx, text_y, "Kalmar Slottskyrka, Kalmar")
-
-    draw_ornament_line(c, cx, text_y - 0.6*cm, 9*cm, BLUSH)
-
-    # Programme summary
-    text_y -= 1.5*cm
-    c.setFont("Times-BoldItalic", 12)
-    c.setFillColor(SAGE_DARK)
-    c.drawCentredString(cx, text_y, "Program")
-
-    programme = [
-        ("15:30", "Gästerna anländer till Kalmar Slott"),
-        ("16:00", "Vigselceremoni i Slottskyrkan"),
-        ("Efter vigseln", "Skålande i Örträdgården"),
-        ("Kväll", "Middag i Slottsrestaurangen"),
-        ("Natt", "Dans i Amiralitetskällaren"),
+    rows = [
+        ("15:30",         "Gasternas ankomst till Kalmar Slott"),
+        ("16:00",         "Vigselceremoni i Slottskyrkan"),
+        ("Efter vigseln", "Skalande i Ortradgarden"),
+        ("Kvall",         "Middag i Slottsrestaurangen"),
+        ("Natt",          "Dans i Amiralitetskallaren"),
+    ]
+    # Swedish text with proper chars
+    rows_sw = [
+        ("15:30",           "G\u00e4sternas ankomst till Kalmar Slott"),
+        ("16:00",           "Vigselceremoni i Slottskyrkan"),
+        ("Efter vigseln",   "Sk\u00e5lande i \u00d6rttr\u00e4dg\u00e5rden"),
+        ("Kv\u00e4ll",      "Middag i Slottsrestaurangen"),
+        ("Natt",            "Dans i Amiralitetsk\u00e4llaren"),
     ]
 
-    text_y -= 0.5*cm
-    for time_str, desc in programme:
-        text_y -= 0.55*cm
-        c.setFont("Times-Bold", 10)
-        c.setFillColor(ROSE_DARK)
-        c.drawRightString(cx - 0.3*cm, text_y, time_str)
-        c.setFont("Times-Roman", 10)
-        c.setFillColor(DARK_BROWN)
-        c.drawString(cx + 0.3*cm, text_y, desc)
-        # small dot separator
+    row_y = 20.85
+    for time_s, desc_s in rows_sw:
+        text(c, row_y, time_s,  "Times-Bold",   10, ROSE_DARK, 'right')
+        text(c, row_y, desc_s,  "Times-Roman",  10, DARK_BROWN, 'left')
+        # dot
         c.setFillColor(BLUSH)
-        c.circle(cx, text_y + 3, 2, fill=1, stroke=0)
+        c.circle(cx, y(row_y) + 3, 2, fill=1, stroke=0)
+        row_y += 0.55
 
-    draw_ornament_line(c, cx, text_y - 0.6*cm, 10*cm, SAGE)
+    ornament(c, row_y + 0.3, 10, SAGE)
 
-    # Dress code & practical
-    text_y -= 1.4*cm
-    c.setFont("Times-BoldItalic", 11)
-    c.setFillColor(SAGE_DARK)
-    c.drawCentredString(cx, text_y, "Klädsel: Mörk kostym")
+    # ── Dress code & accommodation ────────────────────────────────────────
+    text(c, row_y + 1.1, "Kl\u00e4dsel: M\u00f6rk kostym",
+         "Times-BoldItalic", 11, SAGE_DARK)
+    text(c, row_y + 1.75,
+         "Boende: Slottshotellet, Slottsv\u00e4gen 7, Kalmar  \u00b7  "
+         "10% rabatt med kod Joel&Madeleine2025",
+         "Times-Roman", 9, DARK_BROWN)
 
-    text_y -= 0.65*cm
-    c.setFont("Times-Roman", 10)
-    c.setFillColor(DARK_BROWN)
-    c.drawCentredString(cx, text_y,
-        "Boende: Slottshotellet, Slottsvägen 7, Kalmar  ·  10% rabatt med kod Joel&Madeleine2025")
+    ornament(c, row_y + 2.35, 12, BLUSH)
 
-    draw_ornament_line(c, cx, text_y - 0.55*cm, 12*cm, BLUSH)
-
-    # ── Website & password box ───────────────────────────────────────────
-    box_y = 2.5*cm
-    box_h = 2.8*cm
-    box_x = 3.5*cm
-    box_w = W - 7*cm
-
+    # ── Website / password box ────────────────────────────────────────────
+    bx, bw, bh = 3.8*cm, W - 7.6*cm, 2.5*cm
+    by = 1.7*cm                     # bottom edge, from page bottom
     c.setFillColor(BLUSH_MID)
-    c.roundRect(box_x, box_y, box_w, box_h, radius=0.3*cm, fill=1, stroke=0)
-    c.setStrokeColor(ROSE_DARK)
-    c.setLineWidth(1)
-    c.roundRect(box_x, box_y, box_w, box_h, radius=0.3*cm, fill=0, stroke=1)
+    c.roundRect(bx, by, bw, bh, radius=0.28*cm, fill=1, stroke=0)
+    c.setStrokeColor(ROSE_DARK);  c.setLineWidth(1)
+    c.roundRect(bx, by, bw, bh, radius=0.28*cm, fill=0, stroke=1)
 
+    # text inside box (in bottom-origin coords)
     c.setFont("Times-BoldItalic", 12)
     c.setFillColor(ROSE_DARK)
-    c.drawCentredString(cx, box_y + box_h - 0.75*cm, "Vår bröllopssida")
+    c.drawCentredString(cx, by + bh - 0.72*cm, "V\u00e5r br\u00f6llopsida")
 
     c.setFont("Times-Roman", 10)
     c.setFillColor(DARK_BROWN)
-    c.drawCentredString(cx, box_y + box_h - 1.45*cm,
-        "Webbplats:  MadeleineJoel2026.netlify.app")
-    c.drawCentredString(cx, box_y + box_h - 2.0*cm,
-        "Lösenord:  MadeleineJoel2026")
+    c.drawCentredString(cx, by + bh - 1.4*cm,
+                        "Webbplats:  MadeleineJoel2026.netlify.app")
+    c.drawCentredString(cx, by + bh - 1.95*cm,
+                        "L\u00f6senord:  MadeleineJoel2026")
 
-    # ── Bottom footer ─────────────────────────────────────────────────────
+    # ── Footer ────────────────────────────────────────────────────────────
     c.setFont("Times-Italic", 9)
     c.setFillColor(SAGE_DARK)
-    c.drawCentredString(cx, 1.5*cm,
-        "Vi ser fram emot att fira denna dag med er  ♡")
-
-    draw_ornament_line(c, cx, 1.1*cm, 8*cm, BLUSH)
+    c.drawCentredString(cx, 0.9*cm,
+                        "Vi ser fram emot att fira denna dag med er  \u2665")
+    ornament(c, 29.0, 8, BLUSH)
 
     c.save()
-    print(f"PDF saved to: {output_path}")
-    return output_path
+    print(f"Saved: {out}")
+    return out
+
 
 if __name__ == '__main__':
     create_invitation()
