@@ -496,6 +496,9 @@ img { display: block; max-width: 100%; }
 }
 
 /* ── Info cards ── */
+.info-grid--two-col {
+  grid-template-columns: repeat(2, 1fr);
+}
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -837,7 +840,8 @@ img { display: block; max-width: 100%; }
   .hero-montage { height: 45vh; min-height: 240px; }
   .nav-links { display: none; }
   .photo-break { height: 260px; }
-  .info-grid { grid-template-columns: 1fr; }
+  .info-grid,
+  .info-grid--two-col { grid-template-columns: 1fr; }
   .gallery {
     grid-template-columns: 1fr;
     grid-auto-rows: 220px;
