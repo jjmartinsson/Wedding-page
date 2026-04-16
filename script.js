@@ -86,6 +86,61 @@
   elements.forEach((el) => observer.observe(el));
 }());
 
+// ── Lightbox ───────────────────────────────────────────────
+(function initLightbox() {
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lb-img');
+  const btnClose = lb.querySelector('.lb-close');
+  const btnPrev  = lb.querySelector('.lb-prev');
+  const btnNext  = lb.querySelector('.lb-next');
+
+  const imgs = Array.from(document.querySelectorAll('.gallery-item img'));
+  let current = 0;
+
+  function open(idx) {
+    current = (idx + imgs.length) % imgs.length;
+    lbImg.src = imgs[current].src;
+    lbImg.alt = imgs[current].alt;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  imgs.forEach((img, i) => {
+    img.parentElement.parentElement.style.cursor = 'pointer';
+    img.parentElement.parentElement.addEventListener('click', () => open(i));
+  });
+
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', (e) => { e.stopPropagation(); open(current - 1); });
+  btnNext.addEventListener('click', (e) => { e.stopPropagation(); open(current + 1); });
+
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb || e.target === lbImg.parentElement) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')    close();
+    if (e.key === 'ArrowLeft') open(current - 1);
+    if (e.key === 'ArrowRight') open(current + 1);
+  });
+
+  // Swipe support
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) open(dx < 0 ? current + 1 : current - 1);
+  });
+}());
+
 // ── Smooth active nav link highlight ──────────────────────
 (function initActiveNav() {
   const sections = document.querySelectorAll('section[id]');
